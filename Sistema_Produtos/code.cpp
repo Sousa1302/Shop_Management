@@ -15,13 +15,13 @@ int qunatidade = 1;
 
 void adicionarProduto(Produto produtos[], int& quantidadeAtual){
     //mudar a condicao
-    for(int x = 0; x < quantidadeAtual ; x++){
+    for(int x = 0; x < 1 ; x++){
         cout << "Nome: ";
-        cin >> produtos->nome;
+        cin >> produtos[x].nome;
         cout << "Preco: ";
-        cin >> produtos->preco;
+        cin >> produtos[x].preco;
         cout << "Quantidade: ";
-        cin >> produtos->quantidade;
+        cin >> produtos[x].quantidade;
     }
 
     // ? Produto new_product_1;
