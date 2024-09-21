@@ -12,44 +12,44 @@ struct Produto
 
                         // in c++ we cant just declare an array, it needs a num of indexes to know where to locate in the memory
 Produto items[100] = {};    // array with a capacity of 100 indexes ( 100 products )
-int quantidade = 1;
+int quantidade = 0;
 
 void adicionarProduto(Produto produtos[], int& quantidadeAtual){
-    //mudar a condicao
-    // maybe mudar a logica
-    for(int x = 0; x < 1 ; x++){
-        cout << "Nome: ";
-        cin >> produtos[x].nome;
-        cout << "Preco: ";
-        cin >> produtos[x].preco;
-        cout << "Quantidade: ";
-        cin >> produtos[x].quantidade;
-        //quantidadeAtual ++;
-    }
-        quantidade++;
-    
+    cout << "Nome do produto: ";
+    cin >> produtos[quantidadeAtual].nome;
+    cout << "Preco do produto: ";
+    cin >> produtos[quantidadeAtual].preco;
+    cout << "Quantidade do produto: ";
+    cin >> produtos[quantidadeAtual].quantidade;
+
+    system("clear");
+    quantidadeAtual++;
 }
 
-// only shows the last item added to the array info ; ( the first product dissapears ? )
 void exibirProduto(const Produto produtos[], int quantidadeAtual){
     for(int x = 0; x < quantidadeAtual; x++){
+        cout << "----------------------------\n";
         cout << "Nome produto: " << produtos[x].nome << endl;
         cout << "Preco produto: " << produtos[x].preco << endl;
         cout << "Quantidade produto: " << produtos[x].quantidade << endl;
     }
+    cout << "----------------------------\n";
 }
 
-// core dump issue
+
 float calcularValorTotal(const Produto produtos[], int quantidadeAtual){
     float total = 0;
-
+    
     for(int x = 0; x < quantidadeAtual; x++){
-        total = produtos[x].preco * quantidadeAtual;
+        total += produtos[x].preco * produtos[x].quantidade;
     }
+
+    return total;
 }
 
-// menu function ( complete )
+
 void menu(){
+    system("clear");
     int menu_choice;
 
     cout << "Bem vindo ao sistema da lojinha !\n";
@@ -67,7 +67,8 @@ void menu(){
             exibirProduto(items, quantidade);
         }
         else if(menu_choice == 3){
-            calcularValorTotal(items, quantidade);
+            float total_stock = calcularValorTotal(items, quantidade);
+            cout << "O valor total do stock e: " << total_stock << " $\n";
         }
         else if(menu_choice == 4){
             system("clear");
@@ -82,6 +83,5 @@ void menu(){
 
 int main(){
     menu();
-
     return 0;
 }
