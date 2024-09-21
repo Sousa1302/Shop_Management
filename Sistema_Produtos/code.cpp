@@ -10,11 +10,13 @@ struct Produto
     int quantidade;
 };
 
-Produto items[] = {};
-int qunatidade = 1;
+                        // in c++ we cant just declare an array, it needs a num of indexes to know where to locate in the memory
+Produto items[100] = {};    // array with a capacity of 100 indexes ( 100 products )
+int quantidade = 1;
 
 void adicionarProduto(Produto produtos[], int& quantidadeAtual){
     //mudar a condicao
+    // maybe mudar a logica
     for(int x = 0; x < 1 ; x++){
         cout << "Nome: ";
         cin >> produtos[x].nome;
@@ -22,55 +24,63 @@ void adicionarProduto(Produto produtos[], int& quantidadeAtual){
         cin >> produtos[x].preco;
         cout << "Quantidade: ";
         cin >> produtos[x].quantidade;
+        //quantidadeAtual ++;
     }
-
-    // ? Produto new_product_1;
+        quantidade++;
+    
 }
 
+// only shows the last item added to the array info ; ( the first product dissapears ? )
 void exibirProduto(const Produto produtos[], int quantidadeAtual){
     for(int x = 0; x < quantidadeAtual; x++){
-        cout << "Nome produto: " << produtos->nome << endl;
-        cout << "Preco produto: " << produtos->preco << endl;
-        cout << "Quantidade produto: " << produtos->quantidade << endl;
+        cout << "Nome produto: " << produtos[x].nome << endl;
+        cout << "Preco produto: " << produtos[x].preco << endl;
+        cout << "Quantidade produto: " << produtos[x].quantidade << endl;
     }
 }
 
+// core dump issue
 float calcularValorTotal(const Produto produtos[], int quantidadeAtual){
-    float total;
+    float total = 0;
 
     for(int x = 0; x < quantidadeAtual; x++){
-        //total = total + produtos[x];
+        total = produtos[x].preco * quantidadeAtual;
     }
 }
 
+// menu function ( complete )
 void menu(){
     int menu_choice;
 
+    cout << "Bem vindo ao sistema da lojinha !\n";
+    
     do{
-        cout << "Bem vindo ao sistema da lojinha !\n";
-        cout << "1. Adicionar Produtor \n2. Exibir Produtos \n3. Calcular Valor Total do Stock \n4. Sair \n";
+        cout << endl;
+        cout << "1. Adicionar Produto \n2. Exibir Produtos \n3. Calcular Valor Total do Stock \n4. Sair \nR: ";
         cin >> menu_choice;
+        cout << endl;
 
         if(menu_choice == 1){
-            adicionarProduto(items, qunatidade);
+            adicionarProduto(items, quantidade);
         }
         else if (menu_choice == 2){
-            exibirProduto(items, qunatidade);
+            exibirProduto(items, quantidade);
         }
         else if(menu_choice == 3){
-            calcularValorTotal(items, qunatidade);
+            calcularValorTotal(items, quantidade);
         }
         else if(menu_choice == 4){
             system("clear");
             break;
         }
+        else if(menu_choice > 4 || menu_choice < 1){
+            cout << "Escolhe uma opcao elegivel !\n";
+        }
         
-    }while(menu_choice > 0 || menu_choice < 5);
-
+    }while(menu_choice != 4);
 }
 
 int main(){
-    //Produto
     menu();
 
     return 0;
