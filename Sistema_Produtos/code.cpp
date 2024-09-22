@@ -27,13 +27,22 @@ void adicionarProduto(Produto produtos[], int& quantidadeAtual){
 }
 
 void exibirProduto(const Produto produtos[], int quantidadeAtual){
-    for(int x = 0; x < quantidadeAtual; x++){
-        cout << "----------------------------\n";
-        cout << "Nome produto: " << produtos[x].nome << endl;
-        cout << "Preco produto: " << produtos[x].preco << endl;
-        cout << "Quantidade produto: " << produtos[x].quantidade << endl;
+    if(quantidadeAtual == 0){
+        cout << "Ainda nao existem produtos no sistema !\n";
     }
+    else{
+        cout << "----------------------------\n";
+        cout << "|     Lista de Produtos    |\n";
+    
+        for(int x = 0; x < quantidadeAtual; x++){
+            cout << "----------------------------\n";
+            cout << "Produto " << x + 1 << ".\n";
+            cout << "Nome produto: " << produtos[x].nome << endl;
+            cout << "Preco produto: " << produtos[x].preco << " $"<< endl;
+            cout << "Quantidade produto: " << produtos[x].quantidade << endl;
+        }
     cout << "----------------------------\n";
+    }
 }
 
 
@@ -51,9 +60,9 @@ float calcularValorTotal(const Produto produtos[], int quantidadeAtual){
 void menu(){
     system("clear");
     int menu_choice;
-
-    cout << "Bem vindo ao sistema da lojinha !\n";
-    
+    cout << "-----------------------------------------\n";
+    cout << "|   Bem vindo ao sistema da lojinha !   |\n";
+    cout << "-----------------------------------------\n";
     do{
         cout << endl;
         cout << "1. Adicionar Produto \n2. Exibir Produtos \n3. Calcular Valor Total do Stock \n4. Sair \nR: ";
