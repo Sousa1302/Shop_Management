@@ -92,87 +92,104 @@ void exibirProdutos(){
     }
 }
 
-void alterarProdutos(){
+void alterarProduto(){
+    int id;
+    cout << "Qual o ID do produto que desejas alterar: ";
+    cin >> id;
+
+    for(int x = 0; x < quantidade_produtos; x++){
+        if(items[x].ID == id && items[x].STATUS == 'A'){
+            cout << "Novo nome do produto: ";
+            cin >> items[x].NOME_PRODUTO;
+            cout << "Novo preco do produto: ";
+            cin >> items[x].PRECO;
+            cout << "Nova quantidade do produto: ";
+            cin >> items[x].QUANTIDADE;
+
+            gravarProdutosFicheiro();
+            //return;
+            break;
+        }
+    }
+    cout << "Nenhum produto associado a esse ID !\n";
+}
+
+void eliminarProduto(){
+    int id;
+    cout << "Qual o ID do produto que desejas eliminar: ";
+    cin >> id;
+
+    for(int x = 0; x < quantidade_produtos; x++){
+        if(items[x].ID == id && items[x].STATUS == 'A'){
+            items[x].STATUS = 'D';
+            gravarProdutosFicheiro();
+            cout << "Produto eliminado com sucesso";
+            //return;
+            break;
+        }
+    }
+    cout << "Nenhum produto associado a esse ID !\n";
+}
+
+void consultarProduto() {
+    int id;
+    cout << "Digite o ID do produto que deseja consultar: ";
+    cin >> id;
     
-}
-
-
-
-
-
-int dataBase_Status(){
-    string filename = "Shop_Database.csv";
-    int database_choice;
-
-    // Verificar se o ficheiro existe, tentando-o abrir
-    ifstream file(filename);
-
-    // caso o ficheiro ja exista
-    if(file){
-        cout << "Parece que ja tens a base de dados criada... baril !\n";
-
-    }
-
-    // caso o ficheiro nao esteja criado yet 
-    else{
-        cout << "Queres criar uma nova base dados ? \n1. SIM \n2. NAO \nR: ";
-        cin >> database_choice;
-        
-        if(database_choice == 1){
-            ofstream novo_ficheiro(filename);
-            if(novo_ficheiro){
-                cout << "Base de dados criada com sucesso !\n";
-            }
-            else{
-                cout << "Whopsies... parece que algo deu errado !\n";
-            }
-        }
-        else if(database_choice == 2){
-            return 0;
-        }
-        else if(database_choice > 2 || database_choice < 1){
-            cout << "Escolha uma opcao elegivel !\n";
+    for (int i = 0; i < quantidade_produtos; i++) {
+        if (items[i].ID == id && items[i].STATUS == 'A') {
+            cout << "Produto encontrado:\n";
+            cout << "ID: " << items[i].ID << " | "
+                 << "Nome: " << items[i].NOME_PRODUTO << " | "
+                 << "Preco: " << items[i].PRECO << " | "
+                 << "Quantidade: " << items[i].QUANTIDADE << "\n";
+            return;
         }
     }
+    cout << "Produto com ID " << id << " nao encontrado ou eliminado.\n";
 }
+
 
 
 void menu(){
-    
+    carregarProdutos();
+
     int menu_choice;
     cout << "-----------------------------------------\n";
     cout << "|   Bem vindo ao sistema da lojinha !   |\n";
     cout << "-----------------------------------------\n";
     do{
         cout << endl;
-        cout << "1. Listar Produtos \n2. Consultar \n3. Alterar um Produto \n4. Apagar Produto \nR: ";
+        cout << "1. Adicionar Produto \n2. Listar Produtos \n3. Consultar Produtos \n4. Alterar um Produto \n5. Apagar Produto \n6. Sair \nR: ";
         cin >> menu_choice;
         cout << endl;
 
         if(menu_choice == 1){
-            // listar 
+            adicionarProduto();
         }
         else if (menu_choice == 2){
-            // Consultar
+            exibirProdutos();
         }
         else if(menu_choice == 3){
-            // Alterar 
+            consultarProduto();
         }
         else if(menu_choice == 4){
-            // Apagar 
+            alterarProduto();
         }
         else if(menu_choice == 5){
-            break; 
+            eliminarProduto();  
         }
-        else if(menu_choice > 5 || menu_choice < 1){
+        else if(menu_choice == 6){
+            break;
+        }
+        else if(menu_choice > 6 || menu_choice < 1){
             cout << "Escolhe uma opcao elegivel !\n";
         }
         
-    }while(menu_choice != 5);
+    }while(menu_choice != 6);
 }
 
-
 int main(){
-    dataBase_Status();
+    menu();
     return 0;
 }
