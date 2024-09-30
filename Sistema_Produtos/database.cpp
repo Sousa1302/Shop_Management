@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>  // Combination of ifstream to read from files and ofstream to create and write to files
 #include <sstream>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -14,7 +15,6 @@ struct Produto{
 
 Produto items[100] = {};    
 int quantidade_produtos = 0;
-bool database_existance;
 
 void gravarProdutosFicheiro(){
     ofstream ficheiro("BaseDados_Shop.csv");
@@ -40,18 +40,18 @@ void carregarProdutos(){
             stringstream ss(linha);
             string valor;
             
-            Produto produto;
+            Produto artigo;
             getline(ss, valor, ',');
-            produto.ID = stoi(valor);
-            getline(ss, produto.NOME_PRODUTO, ',');
+            artigo.ID = stoi(valor);
+            getline(ss, artigo.NOME_PRODUTO, ',');
             getline(ss, valor, ',');
-            produto.QUANTIDADE = stoi(valor);
+            artigo.QUANTIDADE = stoi(valor);
             getline(ss, valor, ',');
-            produto.PRECO = stof(valor);
+            artigo.PRECO = stof(valor);
             getline(ss, valor, ',');
-            produto.STATUS = valor[0];
+            artigo.STATUS = valor[0];
             
-            items[quantidade_produtos] = produto;
+            items[quantidade_produtos] = artigo;
             quantidade_produtos ++;
         }
         ficheiro.close();
@@ -86,7 +86,8 @@ void exibirProdutos(){
                 cout << "ID: " << items[x].ID << " | "
                      << "Nome: " << items[x].NOME_PRODUTO << " | "
                      << "Preco: " << items[x].PRECO << " | "
-                     << "Quantidade: " << items[x].QUANTIDADE << "\n";
+                     << "Quantidade: " << items[x].QUANTIDADE << " | "
+                     << "\n";
             }
         }
     }
@@ -136,13 +137,14 @@ void consultarProduto() {
     cout << "Digite o ID do produto que deseja consultar: ";
     cin >> id;
     
-    for (int i = 0; i < quantidade_produtos; i++) {
-        if (items[i].ID == id && items[i].STATUS == 'A') {
-            cout << "Produto encontrado:\n";
-            cout << "ID: " << items[i].ID << " | "
-                 << "Nome: " << items[i].NOME_PRODUTO << " | "
-                 << "Preco: " << items[i].PRECO << " | "
-                 << "Quantidade: " << items[i].QUANTIDADE << "\n";
+    for (int x = 0; x < quantidade_produtos; x++) {
+        if (items[x].ID == id && items[x].STATUS == 'A') {
+            cout << "\nProduto encontrado:\n";
+            cout << "ID: " << items[x].ID << " | "
+                 << "Nome: " << items[x].NOME_PRODUTO << " | "
+                 << "Preco: " << items[x].PRECO << " | "
+                 << "Quantidade: " << items[x].QUANTIDADE << " | "
+                 << "Status: " << items[x].STATUS << "\n";
             return;
         }
     }
@@ -155,6 +157,7 @@ void menu(){
     carregarProdutos();
 
     int menu_choice;
+    system("clear");
     cout << "-----------------------------------------\n";
     cout << "|   Bem vindo ao sistema da lojinha !   |\n";
     cout << "-----------------------------------------\n";
@@ -165,21 +168,27 @@ void menu(){
         cout << endl;
 
         if(menu_choice == 1){
+            system("clear");
             adicionarProduto();
         }
         else if (menu_choice == 2){
+            system("clear");
             exibirProdutos();
         }
         else if(menu_choice == 3){
+            system("clear");
             consultarProduto();
         }
         else if(menu_choice == 4){
+            system("clear");
             alterarProduto();
         }
         else if(menu_choice == 5){
+            system("clear");
             eliminarProduto();  
         }
         else if(menu_choice == 6){
+            system("clear");
             break;
         }
         else if(menu_choice > 6 || menu_choice < 1){
