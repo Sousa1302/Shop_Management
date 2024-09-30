@@ -15,6 +15,7 @@ struct Produto{
 
 Produto items[100] = {};    
 int quantidade_produtos = 0;
+bool baseDados_existance = false;
 
 void gravarProdutosFicheiro(){
     ofstream ficheiro("BaseDados_Shop.csv");
@@ -31,8 +32,41 @@ void gravarProdutosFicheiro(){
     ficheiro.close();
 }
 
+// Implementar funcao de criar base de dados atraves de uma pergunta 
+
+/**void gravarProdutosFicheiro(){
+    int menu_choice;
+
+    if(baseDados_existance == false){
+        ofstream ficheiro("BaseDados_Shop1.csv");
+        baseDados_existance = true;
+
+        if(ficheiro.is_open()){
+            for(int x = 0; x < quantidade_produtos; x++){
+                ficheiro << items[x].ID << ","
+                        << items[x].NOME_PRODUTO << ","
+                        << items[x].QUANTIDADE << ","
+                        << items[x].PRECO << ","
+                        << items[x].STATUS << "\n";
+            }
+        }
+        ficheiro.close();
+    }
+    else{
+        cout << "Queres criar uma base de Dados ? \n1. Sim \n2. Nao \nR: ";
+        cin >> menu_choice;
+
+        if(menu_choice == 1){
+            gravarProdutosFicheiro();
+        }
+        else{
+            return;
+        }
+    }
+}*/
+
 void carregarProdutos(){
-    ifstream ficheiro("BaseDados_Shop.csv");
+    ifstream ficheiro("BaseDados_Shop1.csv");
 
     if(ficheiro.is_open()){
         string linha;
@@ -154,6 +188,7 @@ void consultarProduto() {
 
 
 void menu(){
+    gravarProdutosFicheiro();
     carregarProdutos();
 
     int menu_choice;
