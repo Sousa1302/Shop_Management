@@ -15,12 +15,6 @@ struct Produto{
 
 Produto items[100] = {};    
 int quantidade_produtos = 0;
-bool baseDados_existance = false;
-
-bool verificarExistenciaBaseDados(){
-    ifstream ficheiro("BaseDados_Shop.csv");
-    return true;  
-}
 
 void gravarProdutosFicheiro(){
     ofstream ficheiro("BaseDados_Shop.csv");
@@ -39,7 +33,7 @@ void gravarProdutosFicheiro(){
 
 
 void carregarProdutos(){
-    ifstream ficheiro("BaseDados_Shop1.csv");
+    ifstream ficheiro("BaseDados_Shop.csv");
 
     if(ficheiro.is_open()){
         string linha;
@@ -119,7 +113,6 @@ void alterarProduto(){
             break;
         }
     }
-    cout << "Nenhum produto associado a esse ID !\n";
 }
 
 void eliminarProduto(){
@@ -161,27 +154,9 @@ void consultarProduto() {
 
 
 void menu(){
-
-    bool baseDadosStatus = verificarExistenciaBaseDados();
-    if (baseDados_existance) {
-        cout << "Hooray base de dados encontrada !\n";
-        carregarProdutos();  // Se a base de dados já existir, carregue os produtos
-    } else {
-        int choice;
-        cout << "Base de dados não encontrada...\n";
-        cout << "Queres criar uma nova base de dados ? \n1. Sim \n2. Nao \nR: ";
-        cin >> choice;
-
-        if(choice == 1){
-            gravarProdutosFicheiro();  // Cria um ficheiro vazio se não existir
-        }
-        else{
-            return;
-        }
-    }
-
+    
     int menu_choice;
-    //system("clear");
+    
     cout << "-----------------------------------------\n";
     cout << "|   Bem vindo ao sistema da lojinha !   |\n";
     cout << "-----------------------------------------\n";
