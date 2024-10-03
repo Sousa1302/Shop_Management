@@ -154,7 +154,7 @@ void consultarProduto() {
 
 
 void menu(){
-    
+    carregarProdutos();
     int menu_choice;
     
     cout << "-----------------------------------------\n";
